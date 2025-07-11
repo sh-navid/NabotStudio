@@ -12,7 +12,7 @@ import Toolbar from './components/Toolbar';
 // Mock Logo Component (replace with your actual logo)
 const Logo = () => (
     <div className="logo">
-        <img src='/logo512.png'/>
+        <img src='/logo512.png' alt='NabotStudio Logo'/>
     </div>
 );
 
@@ -173,7 +173,6 @@ function LandingPage() {
             </section>
 
             <footer>
-                <p>&copy; {new Date().getFullYear()} NabotStudio. All rights reserved.</p>
             </footer>
         </div>
     );
