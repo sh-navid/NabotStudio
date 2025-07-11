@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
+import Editor from './components/Editor';
+import Output from './components/Output';
+import Preview from './components/Preview';
+import RightMenu from './components/RightMenu';
+import Sidebar from './components/Sidebar';
+import Toolbar from './components/Toolbar';
 
 function App() {
   const [code, setCode] = useState('// start coding!');
@@ -24,37 +30,14 @@ function App() {
 
   return (
     <div className="ide">
-      <div className="sidebar">
-        <h2>Files</h2>
-        <ul>
-          <li>index.js</li>
-          <li>App.js</li>
-          <li>index.html</li>
-        </ul>
-      </div>
+      <Sidebar />
       <div className="editor-container">
-        <div className="toolbar">
-          <button onClick={runCode}>Run</button>
-        </div>
-        <textarea
-          className="editor"
-          value={code}
-          onChange={handleCodeChange}
-        />
-        <div className="output">{output}</div>
+        <Toolbar runCode={runCode} />
+        <Editor code={code} handleCodeChange={handleCodeChange} />
+        <Output output={output} />
       </div>
-      <div className="preview">
-        <h2>Preview</h2>
-        <pre>{previewContent}</pre>
-      </div>
-      <div className="right-menu">
-        <h2>Settings</h2>
-        <ul>
-          <li>Theme</li>
-          <li>Font Size</li>
-          <li>Keybindings</li>
-        </ul>
-      </div>
+      <Preview previewContent={previewContent} />
+      <RightMenu />
     </div>
   );
 }
