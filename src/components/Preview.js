@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 
 function Preview({ url }) {
   const iframeRef = useRef(null);
-  const defaultURL = "http://localhost:5001";
+  const defaultURL = "http://localhost:5401";
 
   useEffect(() => {
     const iframe = iframeRef.current;
@@ -16,7 +16,7 @@ function Preview({ url }) {
       <iframe
         ref={iframeRef}
         title="External URL Preview"
-        style={{ width: '100%', height: '100%', border: 'none' }}
+        style={{ width: '100%', height: '100%', border: 'none !important' }}
       />
     </div>
   );
