@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Tabs from './Tabs';
 
 function Sidebar() {
   const [activeTab, setActiveTab] = useState('files');
@@ -7,23 +8,14 @@ function Sidebar() {
     setActiveTab(tabId);
   };
 
+  const tabsData = [
+    { id: 'files', label: 'Files' },
+    { id: 'explorer', label: 'Explorer' },
+  ];
+
   return (
     <div className="sidebar">
-      <div className="tabs">
-        <button
-          className={`tab ${activeTab === 'files' ? 'active' : ''}`}
-          onClick={() => handleTabClick('files')}
-        >
-          Files
-        </button>
-        <button
-          className={`tab ${activeTab === 'explorer' ? 'active' : ''}`}
-          onClick={() => handleTabClick('explorer')}
-        >
-          Explorer
-        </button>
-      </div>
-
+      <Tabs activeTab={activeTab} onTabClick={handleTabClick} tabsData={tabsData} />
       <div className="tab-content" style={{ display: activeTab === 'files' ? 'block' : 'none' }}>
         <h2>Files</h2>
         <ul>

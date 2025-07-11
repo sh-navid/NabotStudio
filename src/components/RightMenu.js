@@ -1,5 +1,6 @@
 /**/
 import React, { useState } from 'react';
+import Tabs from './Tabs';
 
 function RightMenu() {
   const [activeTab, setActiveTab] = useState('settings');
@@ -8,24 +9,16 @@ function RightMenu() {
     setActiveTab(tabId);
   };
 
+  const tabsData = [
+    { id: 'settings', label: 'Settings' },
+    { id: 'extensions', label: 'Extensions' },
+  ];
+
   return (
     <div className="right-menu">
-      <div className="tabs">
-        <button
-          className={`tab ${activeTab === 'settings' ? 'active' : ''}`}
-          onClick={() => handleTabClick('settings')}
-        >
-          Settings
-        </button>
-        <button
-          className={`tab ${activeTab === 'extensions' ? 'active' : ''}`}
-          onClick={() => handleTabClick('extensions')}
-        >
-          Extensions
-        </button>
-      </div>
+      <Tabs activeTab={activeTab} onTabClick={handleTabClick} tabsData={tabsData} />
 
-      <div className="tab-content active" style={{ display: activeTab === 'settings' ? 'block' : 'none' }}>
+      <div className="tab-content" style={{ display: activeTab === 'settings' ? 'block' : 'none' }}>
         <h2>Settings</h2>
         <ul>
           <li>Theme</li>
