@@ -6,9 +6,9 @@
   --text-light: #fff;
   --text-dark: #000;
   --accent-color: #f0f0f0;
-  --border-color: #555; /*  A bit darker */
-  --box-shadow-color: rgba(0, 0, 0, 0.3); /*  Slightly stronger shadow */
-  --border-radius: 8px; /*  Rounded corners for softer look */
+  --border-color: #555;
+  --box-shadow-color: rgba(0, 0, 0, 0.3);
+  --border-radius: 8px;
 }
 
 body {
@@ -20,13 +20,13 @@ body {
 .ide {
   display: flex;
   height: 100vh;
-  overflow: hidden; /*  Prevent scrollbars */
+  overflow: hidden;
 }
 
 /* Sidebar Styles */
 .sidebar,
 .right-menu {
-  width: 240px; /*  Slightly wider */
+  width: 240px;
   background-color: var(--background-dark);
   color: var(--text-light);
   box-shadow: 2px 0 5px var(--box-shadow-color);
@@ -35,9 +35,9 @@ body {
 
 .sidebar h3,
 .right-menu h3 {
-  margin-bottom: 15px; /*  More space below heading */
+  margin-bottom: 15px;
   color: var(--accent-color);
-  text-transform: uppercase; /*  All caps for headings */
+  text-transform: uppercase;
   font-size: 1em;
 }
 
@@ -47,7 +47,7 @@ body {
 }
 
 .sidebar li {
-  padding: 10px 0; /*  More padding */
+  padding: 10px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -59,15 +59,15 @@ body {
   color: var(--text-light);
   text-decoration: none;
   display: block;
-  transition: color 0.3s, padding-left 0.3s; /*  Smooth transition for hover */
-  padding: 8px; /*  Add some padding */
-  border-radius: 5px; /*  Rounded corners for links */
+  transition: color 0.3s, padding-left 0.3s;
+  padding: 8px;
+  border-radius: 5px;
 }
 
 .sidebar a:hover {
   color: var(--primary-color);
-  padding-left: 15px; /*  Slightly push to the right when hovering */
-  background-color: rgba(255, 255, 255, 0.05); /*  Subtle background on hover */
+  padding-left: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Editor Styles */
@@ -80,10 +80,10 @@ body {
 .toolbar {
   background-color: #222;
   color: var(--text-light);
-  padding: 15px; /*  More padding */
+  padding: 15px;
   text-align: right;
   box-shadow: 0 2px 5px var(--box-shadow-color);
-  border-bottom: 1px solid var(--border-color); /* Keep a subtle border */
+  border-bottom: 1px solid var(--border-color);
 }
 
 .editor {
@@ -91,7 +91,7 @@ body {
   background-color: var(--background-editor);
   color: var(--text-light);
   font-family: 'Courier New', monospace;
-  padding: 20px; /*  More padding */
+  padding: 20px;
   border: none;
   resize: none;
   outline: none;
@@ -117,7 +117,7 @@ button {
   background-color: var(--primary-color);
   border: none;
   color: var(--text-light);
-  padding: 10px 20px; /*  Adjust padding */
+  padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -125,7 +125,7 @@ button {
   cursor: pointer;
   border-radius: var(--border-radius);
   margin-left: 5px;
-  transition: background-color 0.3s, transform 0.3s; /*  Add transform for a "press" effect */
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 button:hover {
@@ -133,7 +133,7 @@ button:hover {
 }
 
 button:active {
-  transform: translateY(1px); /*  Slightly move down when active */
+  transform: translateY(1px);
 }
 
 /* Preview Styles */
@@ -185,4 +185,68 @@ button:active {
 
 .mb-1 {
   margin-bottom: 10px;
+}
+
+/* Chat Interface Styles */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.message {
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  width: fit-content;
+  max-width: 70%;
+}
+
+.user-message {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  align-self: flex-end;
+}
+
+.bot-message {
+  background-color: #444;
+  color: var(--text-light);
+  align-self: flex-start;
+}
+
+.chat-input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+.chat-input {
+  flex-grow: 1;
+  background-color: var(--background-editor);
+  border: none;
+  color: var(--text-light);
+  padding: 8px 12px;
+  border-radius: var(--border-radius);
+  outline: none;
+  font-size: 14px;
+}
+
+.send-button {
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--text-light);
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.send-button:hover {
+  background-color: var(--secondary-color);
 }

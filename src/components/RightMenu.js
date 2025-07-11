@@ -1,39 +1,27 @@
 /**/
+/**/
 import React, { useState } from 'react';
 import Tabs from './Tabs';
+import Assistant from './Assistant'; // Import the new Assistant component
 
 function RightMenu() {
-  const [activeTab, setActiveTab] = useState('settings');
+  const [activeTab, setActiveTab] = useState('assistant'); // Changed default to 'assistant'
 
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
   };
 
   const tabsData = [
-    { id: 'settings', label: 'Settings' },
-    { id: 'extensions', label: 'Extensions' },
+    { id: 'assistant', label: 'Assistant' }, // Changed 'settings' to 'assistant'
   ];
 
   return (
     <div className="right-menu">
       <Tabs activeTab={activeTab} onTabClick={handleTabClick} tabsData={tabsData} />
 
-      <div className="tab-content" style={{ display: activeTab === 'settings' ? 'block' : 'none' }}>
-        <h2>Settings</h2>
-        <ul>
-          <li>Theme</li>
-          <li>Font Size</li>
-          <li>Keybindings</li>
-        </ul>
-      </div>
-
-      <div className="tab-content" style={{ display: activeTab === 'extensions' ? 'block' : 'none' }}>
-        <h2>Extensions</h2>
-        <ul>
-          <li>Ext1</li>
-          <li>Ext2</li>
-          <li>Other</li>
-        </ul>
+      {/* Render the Assistant component when the 'assistant' tab is active */}
+      <div className="tab-content" style={{ display: activeTab === 'assistant' ? 'block' : 'none' }}>
+        <Assistant />
       </div>
     </div>
   );
