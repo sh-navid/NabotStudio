@@ -95,7 +95,6 @@ body {
   flex-grow: 1;
   background-color: var(--background-editor);
   color: var(--text-light);
-  font-family: 'Courier New', monospace;
   padding: 20px;
   border: none;
   resize: none;
@@ -111,7 +110,6 @@ body {
   padding: 15px;
   height: 200px;
   overflow: auto;
-  font-family: monospace;
   border-top: 1px solid var(--border-color);
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
