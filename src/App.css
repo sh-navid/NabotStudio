@@ -29,7 +29,6 @@ body {
   width: 240px; /*  Slightly wider */
   background-color: var(--background-dark);
   color: var(--text-light);
-  padding: 20px; /*  More padding */
   box-shadow: 2px 0 5px var(--box-shadow-color);
   border-radius: var(--border-radius);
 }
@@ -154,7 +153,6 @@ button:active {
 }
 
 .tab {
-  padding: 10px 20px;
   cursor: pointer;
   border: none;
   border-bottom: 2px solid transparent;
