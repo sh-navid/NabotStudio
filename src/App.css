@@ -1,4 +1,3 @@
-/**/
 :root {
   --primary-color: #4CAF50;
   --secondary-color: #3e8e41;
@@ -7,28 +6,40 @@
   --text-light: #fff;
   --text-dark: #000;
   --accent-color: #f0f0f0;
-  --border-color: #ccc;
+  --border-color: #555; /*  A bit darker */
+  --box-shadow-color: rgba(0, 0, 0, 0.3); /*  Slightly stronger shadow */
+  --border-radius: 8px; /*  Rounded corners for softer look */
+}
+
+body {
+  font-family: sans-serif;
+  color: var(--text-light);
+  background-color: var(--background-dark);
 }
 
 .ide {
   display: flex;
   height: 100vh;
+  overflow: hidden; /*  Prevent scrollbars */
 }
 
 /* Sidebar Styles */
 .sidebar,
 .right-menu {
-  width: 220px;
+  width: 240px; /*  Slightly wider */
   background-color: var(--background-dark);
   color: var(--text-light);
-  padding: 15px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  padding: 20px; /*  More padding */
+  box-shadow: 2px 0 5px var(--box-shadow-color);
+  border-radius: var(--border-radius);
 }
 
 .sidebar h3,
 .right-menu h3 {
-  margin-bottom: 10px;
+  margin-bottom: 15px; /*  More space below heading */
   color: var(--accent-color);
+  text-transform: uppercase; /*  All caps for headings */
+  font-size: 1em;
 }
 
 .sidebar ul {
@@ -37,7 +48,7 @@
 }
 
 .sidebar li {
-  padding: 8px 0;
+  padding: 10px 0; /*  More padding */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -49,11 +60,15 @@
   color: var(--text-light);
   text-decoration: none;
   display: block;
-  transition: color 0.3s;
+  transition: color 0.3s, padding-left 0.3s; /*  Smooth transition for hover */
+  padding: 8px; /*  Add some padding */
+  border-radius: 5px; /*  Rounded corners for links */
 }
 
 .sidebar a:hover {
   color: var(--primary-color);
+  padding-left: 15px; /*  Slightly push to the right when hovering */
+  background-color: rgba(255, 255, 255, 0.05); /*  Subtle background on hover */
 }
 
 /* Editor Styles */
@@ -66,9 +81,10 @@
 .toolbar {
   background-color: #222;
   color: var(--text-light);
-  padding: 10px;
+  padding: 15px; /*  More padding */
   text-align: right;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px var(--box-shadow-color);
+  border-bottom: 1px solid var(--border-color); /* Keep a subtle border */
 }
 
 .editor {
@@ -76,7 +92,7 @@
   background-color: var(--background-editor);
   color: var(--text-light);
   font-family: 'Courier New', monospace;
-  padding: 15px;
+  padding: 20px; /*  More padding */
   border: none;
   resize: none;
   outline: none;
@@ -92,7 +108,9 @@
   height: 200px;
   overflow: auto;
   font-family: monospace;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border-color);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 /* Button Styles */
@@ -100,19 +118,23 @@ button {
   background-color: var(--primary-color);
   border: none;
   color: var(--text-light);
-  padding: 8px 16px;
+  padding: 10px 20px; /*  Adjust padding */
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   margin-left: 5px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s; /*  Add transform for a "press" effect */
 }
 
 button:hover {
   background-color: var(--secondary-color);
+}
+
+button:active {
+  transform: translateY(1px); /*  Slightly move down when active */
 }
 
 /* Preview Styles */
@@ -128,7 +150,7 @@ button:hover {
 .tabs {
   display: flex;
   background-color: #222;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .tab {
