@@ -1,4 +1,11 @@
+/**/
+/* Resets and general styles */
+html, body {
+  height: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
