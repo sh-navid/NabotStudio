@@ -74,3 +74,36 @@ button:hover {
   border: 1px solid #ccc;
   overflow: auto;
 }
+
+/* Tabs Styling */
+.tabs {
+  display: flex;
+  background-color: #222;
+}
+
+.tab {
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background-color: transparent;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.tab:hover {
+  background-color: #333;
+}
+
+.tab.active {
+  border-bottom: 2px solid #4CAF50;
+}
+
+.tab-content {
+  display: none;
+  padding: 10px;
+}
+
+.tab-content.active {
+  display: block;
+}
