@@ -261,3 +261,25 @@ button:active {
 .send-button:hover {
   background-color: var(--secondary-color);
 }
+
+/* Landing Page Styles */
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.landing-page h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+}
+
+.landing-page p {
+    font-size: 1.2em;
+    color: var(--text-light);
+    margin-bottom: 30px;
+}
