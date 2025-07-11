@@ -52,7 +52,7 @@ function Assistant() {
         <input
           type="text"
           className="chat-input"
-          placeholder="Type your message..."
+          placeholder="Type your prompt..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {

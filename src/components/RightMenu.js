@@ -1,5 +1,3 @@
-/**/
-/**/
 import React, { useState } from 'react';
 import Tabs from './Tabs';
 import Assistant from './Assistant'; // Import the new Assistant component
