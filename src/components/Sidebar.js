@@ -1,7 +1,8 @@
+/* */
 import React, { useState, useEffect } from 'react';
 import Tabs from './Tabs';
 
-function Sidebar() {
+function Sidebar({ onProjectSelect }) {
     const [activeTab, setActiveTab] = useState('files');
     const [projects, setProjects] = useState([]);
     const [error, setError] = useState(null);
@@ -28,6 +29,10 @@ function Sidebar() {
         setActiveTab(tabId);
     };
 
+    const handleProjectClick = (project) => {
+        onProjectSelect(project);
+    };
+
     const tabsData = [
         { id: 'files', label: 'Project' },
         { id: 'explorer', label: 'Data' },
@@ -41,7 +46,17 @@ function Sidebar() {
                 {error && <div className="error">Error: {error}</div>}
                 <ul>
                     {projects.map(project => (
-                        <li key={project.name}>{project.name} (Port: {project.port}, Running: {project.running ? 'Yes' : 'No'})</li>
+                        <li key={project.name}>
+                            <a
+                                href="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleProjectClick(project);
+                                }}
+                            >
+                                {project.name} (Port: {project.port}, Running: {project.running ? 'Yes' : 'No'})
+                            </a>
+                        </li>
                     ))}
                 </ul>
             </div>

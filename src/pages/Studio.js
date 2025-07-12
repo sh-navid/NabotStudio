@@ -1,3 +1,4 @@
+/**/
 import { useState } from "react";
 import Editor from "../components/Editor";
 import Output from "../components/Output";
@@ -9,7 +10,9 @@ import Toolbar from "../components/Toolbar";
 function IDE() {
     const [code, setCode] = useState('// start coding!');
     const [output, setOutput] = useState('');
-    const [previewContent, setPreviewContent] = useState('');
+    //const [previewContent, setPreviewContent] = useState('');
+		const [previewUrl, setPreviewUrl] = useState(null);
+
 
     const runCode = () => {
         try {
@@ -21,15 +24,19 @@ function IDE() {
         }
     };
 
+		const handleProjectSelect = (project) => {
+        setPreviewUrl(`http://localhost:${project.port}`);
+    };
+
     const handleCodeChange = (e) => {
         const newCode = e.target.value;
         setCode(newCode);
-        setPreviewContent(newCode); // Update preview content
+        //setPreviewContent(newCode); // removing  Update preview content
     };
 
     return (
         <div className="ide">
-            <Sidebar />
+            <Sidebar onProjectSelect={handleProjectSelect}/>
             <div className="editor-container">
                 <Toolbar runCode={runCode} />
                 <div style={{ display: 'flex', flexGrow: 1}}> {/* Horizontal layout */}
@@ -37,7 +44,7 @@ function IDE() {
                         <Editor code={code} handleCodeChange={handleCodeChange} />
                         <Output output={output} />
                     </div>
-                    <Preview previewContent={previewContent} />
+                    <Preview url={previewUrl} />
                 </div>
             </div>
             <RightMenu />
