@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Tabs from "./Tabs";
 
-function Sidebar({ onProjectSelect }) {
+function Sidebar({ onProjectSelect, onFileSelect }) {
   const [activeTab, setActiveTab] = useState("projects");
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -12,13 +12,13 @@ function Sidebar({ onProjectSelect }) {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        console.log("Fetching projects..."); // Add this line
+        console.log("Fetching projects...");
         const response = await fetch("http://localhost:4000/status");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log("Projects data:", data); // Add this line
+        console.log("Projects data:", data);
         setProjects(data);
       } catch (e) {
         setError(e.message);
@@ -32,8 +32,7 @@ function Sidebar({ onProjectSelect }) {
   useEffect(() => {
     const fetchFileStructure = async () => {
       if (selectedProject) {
-
-        console.log(selectedProject)
+        console.log(selectedProject);
 
         setIsLoading(true);
         setError(null);
@@ -66,29 +65,65 @@ function Sidebar({ onProjectSelect }) {
   };
 
   const handleProjectClick = (project) => {
-    console.log("Selected project:", project); //Added Line
+    console.log("Selected project:", project);
     setSelectedProject(project);
     onProjectSelect(project);
-    setActiveTab("explorer"); // Automatically switch to the explorer tab
+    setActiveTab("explorer");
   };
 
-  const renderFileStructure = (structure) => {
+  const handleFileClick = (item) => {
+    console.log(item)
+    if (selectedProject) {
+      // Pass selectedProject.path as basePath and selectedProject.name for projectName
+      const filePath = getFilePath(item, selectedProject.path);
+      onFileSelect({
+        path: filePath,
+        project: selectedProject.name, // Pass project name to onFileSelect
+      });
+    }
+  };
+
+  const getFilePath = (item, basePath) => {
+    let path = item.name;
+    let parent = item.parent;
+
+    // Build the path by traversing up the parent chain
+    while (parent && parent.name) {
+      path = `${parent.name}/${path}`;
+      parent = parent.parent;
+    }
+    // Prepend the base path
+    return `${path}`;
+  };
+
+  const renderFileStructure = (structure, parent = null) => {
     if (!structure || structure.length === 0) {
       return <li>No files found.</li>;
     }
 
-    return structure.map((item, index) => (
-      <li key={index}>
-        {item.type === "directory" ? (
-          <>
-            {item.name}
-            <ul>{renderFileStructure(item.children)}</ul>
-          </>
-        ) : (
-          item.name
-        )}
-      </li>
-    ));
+    return structure.map((item, index) => {
+      item.parent = parent;
+      return (
+        <li key={index}>
+          {item.type === "directory" ? (
+            <>
+              {item.name}
+              <ul>{renderFileStructure(item.children, item)}</ul>
+            </>
+          ) : (
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleFileClick(item);
+              }}
+            >
+              {item.name}
+            </a>
+          )}
+        </li>
+      );
+    });
   };
 
   const tabsData = [

@@ -34,9 +34,24 @@ function IDE() {
         //setPreviewContent(newCode); // removing  Update preview content
     };
 
+    const handleFileSelect = async (filePath) => {
+      alert(JSON.stringify(filePath))
+      try {
+        const response = await fetch(`http://localhost:4000/file-content?path=${filePath.path}&project=${filePath.project}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setCode(data.content);
+      } catch (error) {
+        console.error("Could not fetch file content:", error);
+        setOutput(String(error)); // Display error in output for now
+      }
+    };
+
     return (
         <div className="ide">
-            <Sidebar onProjectSelect={handleProjectSelect}/>
+            <Sidebar onProjectSelect={handleProjectSelect} onFileSelect={handleFileSelect}/>
             <div className="editor-container">
                 <Toolbar runCode={runCode} />
                 <div style={{ display: 'flex', flexGrow: 1}}> {/* Horizontal layout */}
