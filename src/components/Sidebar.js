@@ -1,10 +1,10 @@
-/* */
 import React, { useState, useEffect } from "react";
 import Tabs from "./Tabs";
 
 function Sidebar({ onProjectSelect }) {
   const [activeTab, setActiveTab] = useState("projects");
   const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -30,6 +30,7 @@ function Sidebar({ onProjectSelect }) {
   };
 
   const handleProjectClick = (project) => {
+    setSelectedProject(project);
     onProjectSelect(project);
   };
 
@@ -50,6 +51,11 @@ function Sidebar({ onProjectSelect }) {
         style={{ display: activeTab === "projects" ? "block" : "none" }}
       >
         <h2>Projects</h2>
+        {selectedProject && (
+          <div className="selected-project">
+            Selected Project: {selectedProject.name}
+          </div>
+        )}
         {error && <div className="error">Error: {error}</div>}
         <ul>
           {projects.map((project) => (
@@ -60,6 +66,7 @@ function Sidebar({ onProjectSelect }) {
                   e.preventDefault();
                   handleProjectClick(project);
                 }}
+                className={selectedProject?.name === project.name ? "active" : ""}
               >
                 {project.name} (Port: {project.port}, Running:{" "}
                 {project.running ? "Yes" : "No"})
