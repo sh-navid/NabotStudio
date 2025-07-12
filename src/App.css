@@ -146,6 +146,12 @@ nav a:hover {
   border-bottom: 1px solid var(--border-color);
 }
 
+.toolbar button{
+  font-size: small;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .editor {
   flex-grow: 1;
   background-color: var(--background-editor);
