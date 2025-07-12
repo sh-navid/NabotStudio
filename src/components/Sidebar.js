@@ -73,7 +73,7 @@ function Sidebar({ onProjectSelect }) {
         className="tab-content"
         style={{ display: activeTab === "explorer" ? "block" : "none" }}
       >
-        <h2>Data</h2>
+        <h2>Explorer</h2>
         <ul>
           <li>src</li>
           <li>public</li>
