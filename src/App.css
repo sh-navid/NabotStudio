@@ -140,7 +140,7 @@ nav a:hover {
 .toolbar {
   background-color: #222;
   color: var(--text-light);
-  padding: 15px;
+  padding: 6.5px;
   text-align: right;
   box-shadow: 0 2px 5px var(--box-shadow-color);
   border-bottom: 1px solid var(--border-color);
@@ -148,8 +148,12 @@ nav a:hover {
 
 .toolbar button{
   font-size: small;
-  padding: 5px;
-  border-radius: 5px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.toolbar span{
+  opacity: .3;
 }
 
 .editor {
