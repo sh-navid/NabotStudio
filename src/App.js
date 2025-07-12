@@ -1,4 +1,3 @@
-/* */
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import IDE from "./pages/Studio";

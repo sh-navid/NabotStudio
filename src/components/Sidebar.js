@@ -9,15 +9,15 @@ function Sidebar() {
   };
 
   const tabsData = [
-    { id: 'files', label: 'Files' },
-    { id: 'explorer', label: 'Explorer' },
+    { id: 'files', label: 'Project' },
+    { id: 'explorer', label: 'Data' },
   ];
 
   return (
     <div className="sidebar">
       <Tabs activeTab={activeTab} onTabClick={handleTabClick} tabsData={tabsData} />
       <div className="tab-content" style={{ display: activeTab === 'files' ? 'block' : 'none' }}>
-        <h2>Files</h2>
+        <h2>Project</h2>
         <ul>
           <li>index.js</li>
           <li>App.js</li>
@@ -26,7 +26,7 @@ function Sidebar() {
       </div>
 
       <div className="tab-content" style={{ display: activeTab === 'explorer' ? 'block' : 'none' }}>
-        <h2>Explorer</h2>
+        <h2>Data</h2>
         <ul>
           <li>src</li>
           <li>public</li>

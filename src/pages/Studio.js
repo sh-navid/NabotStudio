@@ -32,10 +32,14 @@ function IDE() {
             <Sidebar />
             <div className="editor-container">
                 <Toolbar runCode={runCode} />
-                <Editor code={code} handleCodeChange={handleCodeChange} />
-                <Output output={output} />
+                <div style={{ display: 'flex', flexGrow: 1}}> {/* Horizontal layout */}
+                    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}> {/* Vertical layout for editor and output */}
+                        <Editor code={code} handleCodeChange={handleCodeChange} />
+                        <Output output={output} />
+                    </div>
+                    <Preview previewContent={previewContent} />
+                </div>
             </div>
-            <Preview previewContent={previewContent} />
             <RightMenu />
         </div>
     );
