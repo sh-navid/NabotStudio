@@ -167,6 +167,9 @@ nav a:hover {
   outline: none;
   line-height: 1.6;
   font-size: 16px;
+  overflow-y: auto; /* Add this line to enable scrollbar */
+  white-space: pre-wrap; /* This is important for wrapping long lines */
+  word-wrap: break-word; /* Handle words that are too long to fit */
 }
 
 /* Output Styles */
@@ -174,7 +177,7 @@ nav a:hover {
   background-color: #333;
   color: var(--text-light);
   padding: 15px;
-  height: 200px;
+  height: 150px;
   overflow: auto;
   border-top: 1px solid var(--border-color);
   border-bottom-left-radius: var(--border-radius);
