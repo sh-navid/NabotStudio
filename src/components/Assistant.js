@@ -12,32 +12,38 @@ function Assistant() {
     }
   }, [messages]);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (input.trim() !== '') {
       // Add user message
       setMessages([...messages, { text: input, sender: 'user' }]);
 
-      // Simulate bot response (replace with actual AI logic)
-      setTimeout(() => {
-        const botResponse = getBotResponse(input);
+      // Call the AI service on the server
+      try {
+        const response = await fetch('http://localhost:4000/ai', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: input }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        // Extract the bot's response content
+        const botResponse = data.choices[0].message.content;
         setMessages(prevMessages => [...prevMessages, { text: botResponse, sender: 'bot' }]);
-      }, 500); // Simulate a delay for the bot response
+      } catch (error) {
+        console.error("Could not fetch AI response:", error);
+        setMessages(prevMessages => [...prevMessages, { text: "Error fetching AI response.", sender: 'bot' }]);
+      }
 
       setInput(''); // Clear the input
     }
   };
 
-  const getBotResponse = (userMessage) => {
-    // Replace with actual AI or predefined responses
-    userMessage = userMessage.toLowerCase();
-    if (userMessage.includes("hello") || userMessage.includes("hi")) {
-      return "Hello! How can I help you today?";
-    } else if (userMessage.includes("help")) {
-      return "Sure, I can help you with code suggestions, debugging, and general programming questions.";
-    } else {
-      return "I'm here to assist you with your coding needs.";
-    }
-  };
 
   return (
     <div className="chat-container">
