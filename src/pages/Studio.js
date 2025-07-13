@@ -35,7 +35,7 @@ function IDE() {
     };
 
     const handleFileSelect = async (filePath) => {
-      alert(JSON.stringify(filePath))
+      // alert(JSON.stringify(filePath))
       try {
         const response = await fetch(`http://localhost:4000/file-content?path=${filePath.path}&project=${filePath.project}`);
         if (!response.ok) {
