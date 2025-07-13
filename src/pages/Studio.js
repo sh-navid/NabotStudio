@@ -58,9 +58,7 @@ function IDE() {
       />
       <div className="editor-container">
         <Toolbar runCode={runCode} />
-        <div style={{ display: "flex", flexGrow: 1 }}>
-          {" "}
-          {/* Horizontal layout */}
+        <div style={{ position: "relative" ,display:"flex" ,flexGrow:1}}>
           <Editor code={code} handleCodeChange={handleCodeChange} />
           <Preview url={previewUrl} />
         </div>

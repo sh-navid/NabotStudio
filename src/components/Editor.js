@@ -1,9 +1,8 @@
-/* */
-import React, { useEffect, useRef } from 'react';
-import Prism from 'prismjs';
-import 'prismjs/themes/prism-tomorrow.css'; // Import the tomorrow theme
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
+import { useEffect, useRef } from "react";
+import Prism from "prismjs";
+import "prismjs/themes/prism-tomorrow.css";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import "prismjs/plugins/line-numbers/prism-line-numbers.js";
 
 function Editor({ code, handleCodeChange }) {
   const editorRef = useRef(null);
@@ -13,11 +12,13 @@ function Editor({ code, handleCodeChange }) {
   }, [code]);
 
   return (
-    <pre className="line-numbers">
-      <code className="language-javascript" ref={editorRef}>
-        {code}
-      </code>
-    </pre>
+    <div className="editor-holder">
+      <pre className="line-numbers">
+        <code className="language-javascript" ref={editorRef}>
+          {code}
+        </code>
+      </pre>
+    </div>
   );
 }
 
