@@ -6,12 +6,13 @@ import Preview from "../components/Preview";
 import RightMenu from "../components/RightMenu";
 import Sidebar from "../components/Sidebar";
 import Toolbar from "../components/Toolbar";
+import Tabs from "../components/Tabs"; // Import Tabs component
 
 function IDE() {
   const [code, setCode] = useState("// start coding!");
   const [output, setOutput] = useState("");
-  //const [previewContent, setPreviewContent] = useState('');
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [activeTab, setActiveTab] = useState("code"); // Default active tab
 
   const runCode = () => {
     try {
@@ -30,11 +31,9 @@ function IDE() {
   const handleCodeChange = (e) => {
     const newCode = e.target.value;
     setCode(newCode);
-    //setPreviewContent(newCode); // removing  Update preview content
   };
 
   const handleFileSelect = async (filePath) => {
-    // alert(JSON.stringify(filePath))
     try {
       const response = await fetch(
         `http://localhost:4000/file-content?path=${filePath.path}&project=${filePath.project}`
@@ -46,9 +45,19 @@ function IDE() {
       setCode(data.content);
     } catch (error) {
       console.error("Could not fetch file content:", error);
-      setOutput(String(error)); // Display error in output for now
+      setOutput(String(error));
     }
   };
+
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+  };
+
+  const tabsData = [
+    { id: "preview", label: "Preview" },
+    { id: "code", label: "Code" },
+    { id: "terminal", label: "Terminal" },
+  ];
 
   return (
     <div className="ide">
@@ -57,12 +66,39 @@ function IDE() {
         onFileSelect={handleFileSelect}
       />
       <div className="editor-container">
-        <Toolbar runCode={runCode} />
-        <div style={{ position: "relative" ,display:"flex" ,flexGrow:1}}>
-          <Editor code={code} handleCodeChange={handleCodeChange} />
+        
+        <Tabs
+          activeTab={activeTab}
+          onTabClick={handleTabClick}
+          tabsData={tabsData}
+        />
+
+
+        <div className="tab-content" style={{ display: activeTab === "preview" ? "block" : "none", flexGrow: 1 }}>
           <Preview url={previewUrl} />
         </div>
-        <Output output={output} />
+
+        
+
+        <div
+          className="tab-content"
+          style={{
+            display: activeTab === "code" ? "block" : "none",
+            position: "relative",
+            flexGrow: 1,
+          }}
+        >
+          <Editor code={code} handleCodeChange={handleCodeChange} />
+        </div>
+
+        <div
+          className="tab-content"
+          style={{ display: activeTab === "terminal" ? "block" : "none" }}
+        >
+          <Output output={output} />
+        </div>
+
+        <Toolbar runCode={runCode} />
       </div>
       <RightMenu />
     </div>
