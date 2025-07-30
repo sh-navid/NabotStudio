@@ -1,13 +1,14 @@
 import { useRef, useEffect } from 'react';
 
+const DEFAULT_URL = "http://localhost:5401";
+
 function Preview({ url }) {
   const iframeRef = useRef(null);
-  const defaultURL = "http://localhost:5401";
 
   useEffect(() => {
     const iframe = iframeRef.current;
     if (iframe) {
-      iframe.src = url || defaultURL;
+      iframe.src = url || DEFAULT_URL;
     }
   }, [url]);
 

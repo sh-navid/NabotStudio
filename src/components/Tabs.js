@@ -1,5 +1,3 @@
-/**/
-import React from 'react';
 
 function Tabs({ activeTab, onTabClick, tabsData }) {
   return (

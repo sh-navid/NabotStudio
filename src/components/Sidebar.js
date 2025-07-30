@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import Tabs from "./Tabs";
+import { fetchProjects, fetchFileStructure } from "../services/projectService";
+import { getFilePath } from "../helpers/fileHelper";
 
 function Sidebar({ onProjectSelect, onFileSelect }) {
   const [activeTab, setActiveTab] = useState("projects");
@@ -10,15 +12,9 @@ function Sidebar({ onProjectSelect, onFileSelect }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const loadProjects = async () => {
       try {
-        console.log("Fetching projects...");
-        const response = await fetch("http://localhost:4000/status");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log("Projects data:", data);
+        const data = await fetchProjects();
         setProjects(data);
       } catch (e) {
         setError(e.message);
@@ -26,24 +22,16 @@ function Sidebar({ onProjectSelect, onFileSelect }) {
       }
     };
 
-    fetchProjects();
+    loadProjects();
   }, []);
 
   useEffect(() => {
-    const fetchFileStructure = async () => {
+    const loadFileStructure = async () => {
       if (selectedProject) {
-        console.log(selectedProject);
-
         setIsLoading(true);
         setError(null);
         try {
-          const response = await fetch(
-            `http://localhost:4000/files?path=${selectedProject.name}`
-          );
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
+          const data = await fetchFileStructure(selectedProject.name);
           setFileStructure(data);
         } catch (e) {
           setError(e.message);
@@ -57,7 +45,7 @@ function Sidebar({ onProjectSelect, onFileSelect }) {
       }
     };
 
-    fetchFileStructure();
+    loadFileStructure();
   }, [selectedProject]);
 
   const handleTabClick = (tabId) => {
@@ -65,35 +53,18 @@ function Sidebar({ onProjectSelect, onFileSelect }) {
   };
 
   const handleProjectClick = (project) => {
-    console.log("Selected project:", project);
     setSelectedProject(project);
     onProjectSelect(project);
-    setActiveTab("explorer");
   };
 
   const handleFileClick = (item) => {
-    console.log(item)
     if (selectedProject) {
-      // Pass selectedProject.path as basePath and selectedProject.name for projectName
       const filePath = getFilePath(item, selectedProject.path);
       onFileSelect({
         path: filePath,
-        project: selectedProject.name, // Pass project name to onFileSelect
+        project: selectedProject.name,
       });
     }
-  };
-
-  const getFilePath = (item, basePath) => {
-    let path = item.name;
-    let parent = item.parent;
-
-    // Build the path by traversing up the parent chain
-    while (parent && parent.name) {
-      path = `${parent.name}/${path}`;
-      parent = parent.parent;
-    }
-    // Prepend the base path
-    return `${path}`;
   };
 
   const renderFileStructure = (structure, parent = null) => {
@@ -127,8 +98,7 @@ function Sidebar({ onProjectSelect, onFileSelect }) {
   };
 
   const tabsData = [
-    { id: "projects", label: "Project" },
-    { id: "explorer", label: "Explorer" },
+    { id: "projects", label: "Projects" },
   ];
 
   return (
@@ -142,12 +112,6 @@ function Sidebar({ onProjectSelect, onFileSelect }) {
         className="tab-content"
         style={{ display: activeTab === "projects" ? "block" : "none" }}
       >
-        <h2>Projects</h2>
-        {selectedProject && (
-          <div className="selected-project">
-            Selected Project: {selectedProject.name}
-          </div>
-        )}
         {error && <div className="error">Error: {error}</div>}
         <ul>
           {projects.map((project) => (
@@ -168,30 +132,6 @@ function Sidebar({ onProjectSelect, onFileSelect }) {
             </li>
           ))}
         </ul>
-      </div>
-
-      <div
-        className="tab-content"
-        style={{ display: activeTab === "explorer" ? "block" : "none" }}
-      >
-        <h2>Explorer</h2>
-        {selectedProject ? (
-          <div>
-            <h3>{selectedProject.name}</h3>
-            {error && <div className="error">Error: {error}</div>}
-            <ul>
-              {isLoading ? (
-                <li>Loading...</li>
-              ) : fileStructure === null || fileStructure.length === 0 ? (
-                <li>No files found.</li>
-              ) : (
-                renderFileStructure(fileStructure)
-              )}
-            </ul>
-          </div>
-        ) : (
-          <p>Select a project to view its file structure.</p>
-        )}
       </div>
     </div>
   );
